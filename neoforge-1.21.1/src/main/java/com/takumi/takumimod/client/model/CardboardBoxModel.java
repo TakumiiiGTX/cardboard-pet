@@ -1,7 +1,9 @@
 package com.takumi.takumimod.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.takumi.takumimod.TakumiMod;
 import com.takumi.takumimod.entity.CardboardBoxEntity;
+import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,8 +14,9 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.HumanoidArm;
 
-public class CardboardBoxModel extends HierarchicalModel<CardboardBoxEntity>
+public class CardboardBoxModel extends HierarchicalModel<CardboardBoxEntity> implements ArmedModel
 {
     public static final ModelLayerLocation LAYER_LOCATION =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TakumiMod.MODID, "cardboard_box"), "main");
@@ -113,5 +116,11 @@ public class CardboardBoxModel extends HierarchicalModel<CardboardBoxEntity>
     public ModelPart root()
     {
         return this.root;
+    }
+
+    @Override
+    public void translateToHand(HumanoidArm side, PoseStack poseStack)
+    {
+        (side == HumanoidArm.RIGHT ? this.rightArm : this.leftArm).translateAndRotate(poseStack);
     }
 }

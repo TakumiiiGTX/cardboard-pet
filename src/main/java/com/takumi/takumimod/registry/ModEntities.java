@@ -16,7 +16,7 @@ public class ModEntities
 
     public static final RegistryObject<EntityType<CardboardBoxEntity>> CARDBOARD_BOX =
             ENTITY_TYPES.register("cardboard_box", () -> EntityType.Builder.of(CardboardBoxEntity::new, MobCategory.CREATURE)
-                    .sized(0.8F, 1.5F)
+                    .sized(1.0F, 1.0F)
                     .clientTrackingRange(10)
                     .build("cardboard_box"));
 

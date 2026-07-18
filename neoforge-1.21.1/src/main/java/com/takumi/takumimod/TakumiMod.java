@@ -79,6 +79,11 @@ public class TakumiMod
         {
             event.accept(ModItems.CARDBOARD_SUMMONER);
             event.accept(ModItems.CARDBOARD_WHISTLE);
+            event.accept(ModItems.CARDBOARD_GIANT_WAND);
+        }
+        if (event.getTabKey() == CreativeModeTabs.COMBAT)
+        {
+            event.accept(ModItems.CARDBOARD_SWORD);
         }
     }
 

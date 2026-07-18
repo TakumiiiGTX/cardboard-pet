@@ -1,6 +1,7 @@
 package com.takumi.takumimod.entity.goal;
 
 import com.takumi.takumimod.entity.CardboardBoxEntity;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,7 +13,8 @@ import java.util.EnumSet;
 /**
  * Normally CardboardBoxEntity walks on the ground; while this goal is active it
  * ignores gravity and flies straight through the air toward its target, then lands
- * and hands off to the melee goal once close enough.
+ * and hands off to the melee goal once close enough. It can also land a hit on the
+ * target mid-flight once within striking distance, rather than only after landing.
  */
 public class FlyAtTargetGoal extends Goal
 {
@@ -21,10 +23,12 @@ public class FlyAtTargetGoal extends Goal
     private static final double FLIGHT_SPEED = 0.35D;
     private static final int MAX_FLIGHT_TICKS = 60;
     private static final int LANDING_SLOW_FALLING_TICKS = 100;
+    private static final int ATTACK_INTERVAL_TICKS = 20;
 
     private final CardboardBoxEntity mob;
     private LivingEntity target;
     private int flightTicks;
+    private int attackCooldown;
 
     public FlyAtTargetGoal(CardboardBoxEntity mob)
     {
@@ -62,6 +66,7 @@ public class FlyAtTargetGoal extends Goal
     {
         this.target = this.mob.getTarget();
         this.flightTicks = 0;
+        this.attackCooldown = 0;
         this.mob.setNoGravity(true);
     }
 
@@ -83,6 +88,10 @@ public class FlyAtTargetGoal extends Goal
     public void tick()
     {
         this.flightTicks++;
+        if (this.attackCooldown > 0)
+        {
+            this.attackCooldown--;
+        }
         if (this.target == null)
         {
             return;
@@ -98,5 +107,12 @@ public class FlyAtTargetGoal extends Goal
         }
 
         this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+
+        if (this.attackCooldown <= 0 && this.mob.distanceToSqr(this.target) <= LAND_DISTANCE_SQR)
+        {
+            this.attackCooldown = ATTACK_INTERVAL_TICKS;
+            this.mob.swing(InteractionHand.MAIN_HAND);
+            this.mob.doHurtTarget(this.target);
+        }
     }
 }

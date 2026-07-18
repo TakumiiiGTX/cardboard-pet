@@ -8,12 +8,18 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import com.takumi.takumimod.entity.goal.AssistOwnerTargetGoal;
 import com.takumi.takumimod.entity.goal.DefendOwnerTargetGoal;
 import com.takumi.takumimod.entity.goal.FlyAtTargetGoal;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -25,7 +31,10 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -34,6 +43,10 @@ public class CardboardBoxEntity extends PathfinderMob
 {
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID =
             SynchedEntityData.defineId(CardboardBoxEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Float> SIZE_SCALE =
+            SynchedEntityData.defineId(CardboardBoxEntity.class, EntityDataSerializers.FLOAT);
+
+    public static final float GIANT_SCALE = 2.5F;
 
     public CardboardBoxEntity(EntityType<? extends CardboardBoxEntity> type, Level level)
     {
@@ -55,6 +68,7 @@ public class CardboardBoxEntity extends PathfinderMob
     {
         super.defineSynchedData();
         this.entityData.define(OWNER_UUID, Optional.empty());
+        this.entityData.define(SIZE_SCALE, 1.0F);
     }
 
     @Override
@@ -84,6 +98,73 @@ public class CardboardBoxEntity extends PathfinderMob
         return super.canAttack(target);
     }
 
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand)
+    {
+        if (!player.isShiftKeyDown() || !isOwnedBy(player))
+        {
+            return InteractionResult.PASS;
+        }
+
+        if (this.level().isClientSide)
+        {
+            return InteractionResult.CONSUME;
+        }
+
+        EquipmentSlot slot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+        ItemStack heldItem = player.getItemInHand(hand);
+        ItemStack equippedItem = this.getItemBySlot(slot);
+
+        if (heldItem.isEmpty() && equippedItem.isEmpty())
+        {
+            return InteractionResult.PASS;
+        }
+
+        if (!heldItem.isEmpty())
+        {
+            this.setItemSlot(slot, heldItem.split(1));
+            if (!equippedItem.isEmpty() && !player.getInventory().add(equippedItem))
+            {
+                player.drop(equippedItem, false);
+            }
+        }
+        else
+        {
+            this.setItemSlot(slot, ItemStack.EMPTY);
+            player.setItemInHand(hand, equippedItem);
+        }
+
+        this.level().playSound(null, this.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        return InteractionResult.CONSUME;
+    }
+
+    /**
+     * Returns equipped items to the owner on death instead of dropping them on the ground,
+     * falling back to a ground drop if the owner isn't loaded or their inventory is full.
+     */
+    @Override
+    protected void dropEquipment()
+    {
+        Player owner = getOwnerEntity();
+        for (EquipmentSlot slot : EquipmentSlot.values())
+        {
+            ItemStack stack = this.getItemBySlot(slot);
+            if (stack.isEmpty())
+            {
+                continue;
+            }
+            this.setItemSlot(slot, ItemStack.EMPTY);
+            if (owner == null)
+            {
+                this.spawnAtLocation(stack);
+            }
+            else if (!owner.getInventory().add(stack))
+            {
+                owner.drop(stack, false);
+            }
+        }
+    }
+
     /**
      * Resolves the owning player entity in this level, if they're currently loaded.
      */
@@ -96,6 +177,59 @@ public class CardboardBoxEntity extends PathfinderMob
     public boolean removeWhenFarAway(double distanceToClosestPlayer)
     {
         return false;
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pose)
+    {
+        return super.getDimensions(pose).scale(getSizeScale());
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key)
+    {
+        super.onSyncedDataUpdated(key);
+        // The client only receives the new SIZE_SCALE value here; unlike vanilla's built-in
+        // Attributes.SCALE, nothing refreshes its hitbox for it automatically, so without this
+        // the client keeps using the old (unscaled) bounding box for clicking/attacking even
+        // though the model renders at the new size.
+        if (SIZE_SCALE.equals(key))
+        {
+            this.refreshDimensions();
+        }
+    }
+
+    public float getSizeScale()
+    {
+        return this.entityData.get(SIZE_SCALE);
+    }
+
+    public void setSizeScale(float scale)
+    {
+        this.entityData.set(SIZE_SCALE, scale);
+        this.refreshDimensions();
+    }
+
+    /**
+     * Scales this cardboard box up to giant size, boosting health/attack alongside its hitbox and model.
+     * Intended to be called once, right after spawning.
+     */
+    public void makeGiant()
+    {
+        setSizeScale(GIANT_SCALE);
+
+        AttributeInstance maxHealth = getAttribute(Attributes.MAX_HEALTH);
+        if (maxHealth != null)
+        {
+            maxHealth.setBaseValue(maxHealth.getBaseValue() * GIANT_SCALE);
+        }
+        AttributeInstance attackDamage = getAttribute(Attributes.ATTACK_DAMAGE);
+        if (attackDamage != null)
+        {
+            attackDamage.setBaseValue(attackDamage.getBaseValue() * GIANT_SCALE);
+        }
+
+        setHealth(getMaxHealth());
     }
 
     public void setOwnerUUID(UUID uuid)
@@ -118,6 +252,7 @@ public class CardboardBoxEntity extends PathfinderMob
     {
         super.addAdditionalSaveData(tag);
         getOwnerUUID().ifPresent(uuid -> tag.putUUID("Owner", uuid));
+        tag.putFloat("SizeScale", getSizeScale());
     }
 
     @Override
@@ -127,6 +262,13 @@ public class CardboardBoxEntity extends PathfinderMob
         if (tag.hasUUID("Owner"))
         {
             setOwnerUUID(tag.getUUID("Owner"));
+        }
+        if (tag.contains("SizeScale"))
+        {
+            // Attribute base values (health/attack) are restored separately via LivingEntity's own
+            // "Attributes" NBT, so just resync the hitbox/model scale here without reapplying bonuses.
+            this.entityData.set(SIZE_SCALE, tag.getFloat("SizeScale"));
+            this.refreshDimensions();
         }
     }
 }
