@@ -114,7 +114,10 @@ public class TakumiMod
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
             event.accept(EXAMPLE_BLOCK_ITEM);
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES)
+        {
             event.accept(ModItems.CARDBOARD_SUMMONER);
+            event.accept(ModItems.CARDBOARD_WHISTLE);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
