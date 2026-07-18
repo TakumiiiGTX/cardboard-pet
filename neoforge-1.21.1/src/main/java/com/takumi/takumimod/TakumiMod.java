@@ -25,12 +25,12 @@ import org.slf4j.Logger;
 public class TakumiMod
 {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "takumimod";
+    public static final String MODID = "cardboard_pet";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Items which will all be registered under the "takumimod" namespace
+    // Create a Deferred Register to hold Items which will all be registered under the mod's namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "takumimod" namespace
+    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the mod's namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public TakumiMod(IEventBus modEventBus, ModContainer modContainer)
@@ -69,7 +69,12 @@ public class TakumiMod
 
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
 
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+        // On a first-time config generation, ModConfigEvent.Loading can still be in flight when
+        // this fires, leaving these fields at their pre-load (null) state.
+        if (Config.items != null)
+        {
+            Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+        }
     }
 
     // Add the mod's items to the tools and utilities tab

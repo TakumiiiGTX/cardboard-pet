@@ -1,6 +1,6 @@
 # CLAUDE.md (neoforge-1.21.1/)
 
-Minecraft 1.21.1 / NeoForge 版の "Cardboard Pet"。[ルートのForge 1.20.1版](../CLAUDE.md)と同じ機能を持つ移植版で、mod id/パッケージ名は `takumimod` / `com.takumi.takumimod` のまま共通。**このディレクトリは完全に独立したGradleプロジェクト**（独自の `gradlew`/`settings.gradle`/`build.gradle`）。ルートから `cd` して初めてコマンドを実行すること。
+Minecraft 1.21.1 / NeoForge 版の "Cardboard Pet"。[ルートのForge 1.20.1版](../CLAUDE.md)と同じ機能を持つ移植版で、mod id（`cardboard_pet`）・Javaパッケージ名/クラス名（`com.takumi.takumimod` / `TakumiMod`）ともにルート版と共通。**このディレクトリは完全に独立したGradleプロジェクト**（独自の `gradlew`/`settings.gradle`/`build.gradle`）。ルートから `cd` して初めてコマンドを実行すること。
 
 ## ビルド・実行
 

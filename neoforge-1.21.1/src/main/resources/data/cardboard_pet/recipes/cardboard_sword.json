@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "P",
+    "S"
+  ],
+  "key": {
+    "P": { "item": "minecraft:paper" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "cardboard_pet:cardboard_sword",
+    "count": 1
+  }
+}

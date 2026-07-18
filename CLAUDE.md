@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Minecraft MOD "Cardboard Pet"（GitHub リポジトリ名: `cardboard-pet`）。内部 mod id / パッケージ名は `takumimod`（`com.takumi.takumimod`）で両バージョン共通。日本語コンテキストのプロジェクトで、リソース（アイテム名など）は日本語・英語両対応。
+Minecraft MOD "Cardboard Pet"（GitHub リポジトリ名: `cardboard-pet`）。mod id は `cardboard_pet`（リポジトリ名と統一、ハイフンはmod id規則上使えないためアンダースコア）で両バージョン共通。Javaパッケージ名/クラス名は歴史的経緯で `com.takumi.takumimod` / `TakumiMod` のまま（mod idとは別物、変更していない）。日本語コンテキストのプロジェクトで、リソース（アイテム名など）は日本語・英語両対応。
 
 ## バージョン構成
 
@@ -45,9 +45,9 @@ Java Edition（Forge / NeoForge）に加えて、**Minecraft 統合版（Bedrock
   - `registry/ModItems.java`, `registry/ModEntities.java` — DeferredRegister定義。段ボールの当たり判定は`sized(1.0F, 1.0F)`（1x1x1）
   - `client/` — レンダラー・モデル（クライアント専用）
 - `src/main/resources/`
-  - `data/takumimod/recipes/` — クラフトレシピ
-  - `assets/takumimod/lang/{en_us,ja_jp}.json` — ローカライズ。アイテム/エンティティ追加時は両方更新する
-  - `assets/takumimod/models/`, `textures/` — アイテム/エンティティのモデル・テクスチャ
+  - `data/cardboard_pet/recipes/` — クラフトレシピ
+  - `assets/cardboard_pet/lang/{en_us,ja_jp}.json` — ローカライズ。アイテム/エンティティ追加時は両方更新する
+  - `assets/cardboard_pet/models/`, `textures/` — アイテム/エンティティのモデル・テクスチャ
 
 ## 実装上の注意
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PHP",
+    "PSP"
+  ],
+  "key": {
+    "P": { "item": "minecraft:paper" },
+    "H": { "item": "minecraft:netherite_hoe" },
+    "S": { "item": "minecraft:string" }
+  },
+  "result": {
+    "item": "cardboard_pet:cardboard_summoner",
+    "count": 1
+  }
+}
