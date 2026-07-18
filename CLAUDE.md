@@ -1,8 +1,17 @@
 # CLAUDE.md
 
-Minecraft Forge 1.20.1 MOD "Cardboard Pet"（GitHub リポジトリ名: `cardboard-pet`）。内部 mod id / パッケージ名は `takumimod`（`com.takumi.takumimod`）のまま。日本語コンテキストのプロジェクトで、リソース（アイテム名など）は日本語・英語両対応。
+Minecraft MOD "Cardboard Pet"（GitHub リポジトリ名: `cardboard-pet`）。内部 mod id / パッケージ名は `takumimod`（`com.takumi.takumimod`）で両バージョン共通。日本語コンテキストのプロジェクトで、リソース（アイテム名など）は日本語・英語両対応。
 
-## ビルド・実行
+## バージョン構成
+
+このリポジトリは2つの独立したGradleプロジェクトを含む:
+
+- **ルート** — Minecraft 1.20.1 / Forge（ForgeGradle）。以下の説明は主にこちら
+- **`neoforge-1.21.1/`** — Minecraft 1.21.1 / NeoForge（NeoGradle）への移植版。独自の `gradlew`/`settings.gradle`/`build.gradle` を持つ完全に独立したビルド。詳細は[neoforge-1.21.1/CLAUDE.md](neoforge-1.21.1/CLAUDE.md)
+
+**両バージョンでゲームロジック（段ボールのAI・アイテムの効果など）は同一に保つこと。** 片方に機能追加・バグ修正をしたら、もう片方にも同じ変更を反映する（API差分は各バージョンのCLAUDE.mdを参照）。
+
+## ビルド・実行（ルート = Forge 1.20.1）
 
 ```
 ./gradlew runClient    # クライアント起動（初回はMCソースのDL/デコンパイルで時間がかかる）
