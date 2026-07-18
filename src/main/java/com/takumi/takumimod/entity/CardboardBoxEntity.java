@@ -5,6 +5,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import com.takumi.takumimod.entity.goal.AssistOwnerTargetGoal;
+import com.takumi.takumimod.entity.goal.DefendOwnerTargetGoal;
 import com.takumi.takumimod.entity.goal.FlyAtTargetGoal;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.EntityType;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
@@ -65,18 +68,28 @@ public class CardboardBoxEntity extends PathfinderMob
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, CardboardBoxEntity.class));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false,
-                entity -> !isOwnedBy(entity) && !(entity instanceof CardboardBoxEntity) && !(entity instanceof ArmorStand)));
+        this.targetSelector.addGoal(1, new DefendOwnerTargetGoal(this));
+        this.targetSelector.addGoal(2, new AssistOwnerTargetGoal(this));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 10, true, false,
+                entity -> entity instanceof Enemy));
     }
 
     @Override
     public boolean canAttack(LivingEntity target)
     {
-        if (isOwnedBy(target))
+        if (isOwnedBy(target) || target instanceof CardboardBoxEntity || target instanceof ArmorStand)
         {
             return false;
         }
         return super.canAttack(target);
+    }
+
+    /**
+     * Resolves the owning player entity in this level, if they're currently loaded.
+     */
+    public Player getOwnerEntity()
+    {
+        return getOwnerUUID().map(this.level()::getPlayerByUUID).orElse(null);
     }
 
     @Override
