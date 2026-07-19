@@ -10,7 +10,7 @@
     "S": { "item": "minecraft:stick" }
   },
   "result": {
-    "item": "cardboard_pet:cardboard_sword",
+    "id": "cardboard_pet:cardboard_sword",
     "count": 1
   }
 }

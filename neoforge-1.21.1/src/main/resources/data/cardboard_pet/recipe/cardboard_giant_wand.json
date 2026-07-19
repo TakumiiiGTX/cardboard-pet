@@ -12,7 +12,7 @@
     "S": { "item": "cardboard_pet:cardboard_summoner" }
   },
   "result": {
-    "item": "cardboard_pet:cardboard_giant_wand",
+    "id": "cardboard_pet:cardboard_giant_wand",
     "count": 1
   }
 }

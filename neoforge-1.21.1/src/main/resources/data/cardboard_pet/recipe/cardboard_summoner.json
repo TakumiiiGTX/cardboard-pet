@@ -11,7 +11,7 @@
     "S": { "item": "minecraft:string" }
   },
   "result": {
-    "item": "cardboard_pet:cardboard_summoner",
+    "id": "cardboard_pet:cardboard_summoner",
     "count": 1
   }
 }

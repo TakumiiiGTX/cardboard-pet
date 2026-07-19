@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "cardboard_pet:cardboard_sword" },
+    { "item": "minecraft:cobbled_deepslate" },
+    { "item": "minecraft:cobbled_deepslate" }
+  ],
+  "result": {
+    "item": "cardboard_pet:cardboard_sword_reinforced_deepslate",
+    "count": 1
+  }
+}

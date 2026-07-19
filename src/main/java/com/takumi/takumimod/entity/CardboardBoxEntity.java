@@ -31,6 +31,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.sounds.SoundEvents;
@@ -98,6 +99,9 @@ public class CardboardBoxEntity extends PathfinderMob
         return super.canAttack(target);
     }
 
+    private static final EquipmentSlot[] ARMOR_SLOTS =
+            {EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
+
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand)
     {
@@ -111,17 +115,12 @@ public class CardboardBoxEntity extends PathfinderMob
             return InteractionResult.CONSUME;
         }
 
-        EquipmentSlot slot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
         ItemStack heldItem = player.getItemInHand(hand);
-        ItemStack equippedItem = this.getItemBySlot(slot);
-
-        if (heldItem.isEmpty() && equippedItem.isEmpty())
-        {
-            return InteractionResult.PASS;
-        }
 
         if (!heldItem.isEmpty())
         {
+            EquipmentSlot slot = resolveEquipSlot(heldItem, hand);
+            ItemStack equippedItem = this.getItemBySlot(slot);
             this.setItemSlot(slot, heldItem.split(1));
             if (!equippedItem.isEmpty() && !player.getInventory().add(equippedItem))
             {
@@ -130,12 +129,52 @@ public class CardboardBoxEntity extends PathfinderMob
         }
         else
         {
+            EquipmentSlot slot = findUnequipSlot(hand);
+            if (slot == null)
+            {
+                return InteractionResult.PASS;
+            }
+            ItemStack equippedItem = this.getItemBySlot(slot);
             this.setItemSlot(slot, ItemStack.EMPTY);
             player.setItemInHand(hand, equippedItem);
         }
 
         this.level().playSound(null, this.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.NEUTRAL, 1.0F, 1.0F);
         return InteractionResult.CONSUME;
+    }
+
+    /**
+     * Armor pieces go to their matching armor slot regardless of which hand they're held in;
+     * anything else keeps the previous per-hand behavior (main hand / off hand item slot).
+     */
+    private static EquipmentSlot resolveEquipSlot(ItemStack stack, InteractionHand hand)
+    {
+        if (stack.getItem() instanceof ArmorItem armorItem)
+        {
+            return armorItem.getEquipmentSlot();
+        }
+        return hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+    }
+
+    /**
+     * Empty-hand shift-right-click retrieves the matching hand slot first (existing behavior),
+     * then falls back to the first occupied armor slot so armor can be taken back too.
+     */
+    private EquipmentSlot findUnequipSlot(InteractionHand hand)
+    {
+        EquipmentSlot handSlot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+        if (!this.getItemBySlot(handSlot).isEmpty())
+        {
+            return handSlot;
+        }
+        for (EquipmentSlot armorSlot : ARMOR_SLOTS)
+        {
+            if (!this.getItemBySlot(armorSlot).isEmpty())
+            {
+                return armorSlot;
+            }
+        }
+        return null;
     }
 
     /**

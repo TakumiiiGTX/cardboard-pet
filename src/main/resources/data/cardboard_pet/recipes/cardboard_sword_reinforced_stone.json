@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "cardboard_pet:cardboard_sword" },
+    { "item": "minecraft:cobblestone" },
+    { "item": "minecraft:cobblestone" }
+  ],
+  "result": {
+    "item": "cardboard_pet:cardboard_sword_reinforced_stone",
+    "count": 1
+  }
+}

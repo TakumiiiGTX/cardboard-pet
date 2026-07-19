@@ -3,6 +3,7 @@ package com.takumi.takumimod.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.takumi.takumimod.TakumiMod;
+import com.takumi.takumimod.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
@@ -21,8 +22,25 @@ public class CardboardSwordItemRenderer extends BlockEntityWithoutLevelRenderer
 {
     private static final ResourceLocation BASE_TEXTURE =
             new ResourceLocation(TakumiMod.MODID, "textures/item/cardboard_sword.png");
+    private static final ResourceLocation BASE_TEXTURE_STONE =
+            new ResourceLocation(TakumiMod.MODID, "textures/item/cardboard_sword_reinforced_stone.png");
+    private static final ResourceLocation BASE_TEXTURE_DEEPSLATE =
+            new ResourceLocation(TakumiMod.MODID, "textures/item/cardboard_sword_reinforced_deepslate.png");
     private static final ResourceLocation GLOW_TEXTURE =
             new ResourceLocation(TakumiMod.MODID, "textures/item/cardboard_sword_glow.png");
+
+    private static ResourceLocation resolveBaseTexture(ItemStack stack)
+    {
+        if (stack.is(ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE.get()))
+        {
+            return BASE_TEXTURE_DEEPSLATE;
+        }
+        if (stack.is(ModItems.CARDBOARD_SWORD_REINFORCED_STONE.get()))
+        {
+            return BASE_TEXTURE_STONE;
+        }
+        return BASE_TEXTURE;
+    }
 
     public CardboardSwordItemRenderer()
     {
@@ -45,7 +63,7 @@ public class CardboardSwordItemRenderer extends BlockEntityWithoutLevelRenderer
         VertexConsumer glowConsumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(GLOW_TEXTURE));
         renderFlatQuad(poseStack, glowConsumer, LightTexture.FULL_BRIGHT, overlay, GLOW_Z);
 
-        VertexConsumer baseConsumer = buffer.getBuffer(RenderType.entityTranslucent(BASE_TEXTURE));
+        VertexConsumer baseConsumer = buffer.getBuffer(RenderType.entityTranslucent(resolveBaseTexture(stack)));
         renderFlatQuad(poseStack, baseConsumer, light, overlay, BASE_Z);
 
         poseStack.popPose();

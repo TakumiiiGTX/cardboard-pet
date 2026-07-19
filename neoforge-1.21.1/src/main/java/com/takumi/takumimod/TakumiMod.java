@@ -89,6 +89,8 @@ public class TakumiMod
         if (event.getTabKey() == CreativeModeTabs.COMBAT)
         {
             event.accept(ModItems.CARDBOARD_SWORD);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_STONE);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE);
         }
     }
 

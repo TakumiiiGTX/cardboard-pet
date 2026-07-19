@@ -3,6 +3,7 @@ package com.takumi.takumimod.registry;
 import com.takumi.takumimod.TakumiMod;
 import com.takumi.takumimod.item.CardboardGiantWandItem;
 import com.takumi.takumimod.item.CardboardSummonerItem;
+import com.takumi.takumimod.item.CardboardTiers;
 import com.takumi.takumimod.item.CardboardWhistleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
@@ -26,6 +27,15 @@ public class ModItems
     public static final DeferredItem<Item> CARDBOARD_SWORD =
             TakumiMod.ITEMS.register("cardboard_sword",
                     () -> new SwordItem(Tiers.WOOD, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.WOOD, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_STONE =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_stone",
+                    () -> new SwordItem(Tiers.STONE, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.STONE, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_DEEPSLATE =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_deepslate",
+                    () -> new SwordItem(CardboardTiers.DEEPSLATE_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.DEEPSLATE_REINFORCED, 3, -0.4F))));
 
     public static void init()
     {

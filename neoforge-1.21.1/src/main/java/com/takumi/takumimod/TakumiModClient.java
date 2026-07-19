@@ -28,13 +28,15 @@ public class TakumiModClient
     static void onRegisterClientExtensions(RegisterClientExtensionsEvent event)
     {
         CardboardSwordItemRenderer renderer = new CardboardSwordItemRenderer();
-        event.registerItem(new IClientItemExtensions()
+        IClientItemExtensions extensions = new IClientItemExtensions()
         {
             @Override
             public net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer getCustomRenderer()
             {
                 return renderer;
             }
-        }, ModItems.CARDBOARD_SWORD.get());
+        };
+        event.registerItem(extensions, ModItems.CARDBOARD_SWORD.get(), ModItems.CARDBOARD_SWORD_REINFORCED_STONE.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE.get());
     }
 }

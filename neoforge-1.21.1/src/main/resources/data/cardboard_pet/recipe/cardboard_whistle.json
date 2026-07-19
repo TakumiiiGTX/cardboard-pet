@@ -10,7 +10,7 @@
     "S": { "item": "minecraft:string" }
   },
   "result": {
-    "item": "cardboard_pet:cardboard_whistle",
+    "id": "cardboard_pet:cardboard_whistle",
     "count": 1
   }
 }

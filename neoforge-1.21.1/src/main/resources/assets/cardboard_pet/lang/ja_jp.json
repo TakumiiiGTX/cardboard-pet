@@ -3,5 +3,7 @@
   "item.cardboard_pet.cardboard_whistle": "段ボール呼び笛",
   "item.cardboard_pet.cardboard_giant_wand": "段ボール巨大化の杖",
   "item.cardboard_pet.cardboard_sword": "段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_stone": "石強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_deepslate": "深層岩強化段ボールの剣",
   "entity.cardboard_pet.cardboard_box": "段ボール"
 }
