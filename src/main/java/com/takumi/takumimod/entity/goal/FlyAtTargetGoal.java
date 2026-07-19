@@ -20,7 +20,7 @@ public class FlyAtTargetGoal extends Goal
 {
     private static final double TRIGGER_DISTANCE_SQR = 9.0D;
     private static final double LAND_DISTANCE_SQR = 2.25D;
-    private static final double FLIGHT_SPEED = 0.35D;
+    private static final double FLIGHT_SPEED = 0.5D;
     private static final int MAX_FLIGHT_TICKS = 60;
     private static final int LANDING_SLOW_FALLING_TICKS = 100;
     private static final int ATTACK_INTERVAL_TICKS = 20;
@@ -40,7 +40,7 @@ public class FlyAtTargetGoal extends Goal
     public boolean canUse()
     {
         LivingEntity target = this.mob.getTarget();
-        if (target == null || !target.isAlive() || !this.mob.onGround())
+        if (target == null || !target.isAlive())
         {
             return false;
         }

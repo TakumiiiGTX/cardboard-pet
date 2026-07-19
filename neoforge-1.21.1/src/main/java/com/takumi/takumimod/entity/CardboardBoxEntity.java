@@ -55,7 +55,7 @@ public class CardboardBoxEntity extends PathfinderMob
                 .add(Attributes.MAX_HEALTH, 40.0D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
-                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.FOLLOW_RANGE, 500.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.3D);
     }
 
@@ -79,7 +79,8 @@ public class CardboardBoxEntity extends PathfinderMob
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, CardboardBoxEntity.class));
         this.targetSelector.addGoal(1, new DefendOwnerTargetGoal(this));
         this.targetSelector.addGoal(2, new AssistOwnerTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 10, true, false,
+        // mustSee=false so losing line of sight doesn't make it give up the chase either
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 10, false, false,
                 entity -> entity instanceof Enemy));
     }
 
