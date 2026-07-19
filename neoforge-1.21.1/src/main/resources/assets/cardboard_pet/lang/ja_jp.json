@@ -5,5 +5,15 @@
   "item.cardboard_pet.cardboard_sword": "段ボールの剣",
   "item.cardboard_pet.cardboard_sword_reinforced_stone": "石強化段ボールの剣",
   "item.cardboard_pet.cardboard_sword_reinforced_deepslate": "深層岩強化段ボールの剣",
-  "entity.cardboard_pet.cardboard_box": "段ボール"
+  "entity.cardboard_pet.cardboard_box": "段ボール",
+  "item.cardboard_pet.cardboard_sword_reinforced_iron": "鉄強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_gold": "金強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_diamond": "ダイヤ強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_emerald": "エメラルド強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_netherite": "ネザライト強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_obsidian": "黒曜石強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_crying_obsidian": "泣く黒曜石強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_sculk": "スカルク強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_end": "エンド強化段ボールの剣",
+  "item.cardboard_pet.cardboard_sword_reinforced_nether_star": "ネザースター強化段ボールの剣"
 }

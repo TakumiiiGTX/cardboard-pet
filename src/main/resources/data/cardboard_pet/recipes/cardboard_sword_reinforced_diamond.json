@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cardboard_pet:cardboard_sword_reinforced_gold"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
+  "result": {
+    "item": "cardboard_pet:cardboard_sword_reinforced_diamond",
+    "count": 1
+  }
+}

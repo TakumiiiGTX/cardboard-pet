@@ -5,5 +5,15 @@
   "item.cardboard_pet.cardboard_sword": "Cardboard Sword",
   "item.cardboard_pet.cardboard_sword_reinforced_stone": "Stone-Reinforced Cardboard Sword",
   "item.cardboard_pet.cardboard_sword_reinforced_deepslate": "Deepslate-Reinforced Cardboard Sword",
-  "entity.cardboard_pet.cardboard_box": "Cardboard Box"
+  "entity.cardboard_pet.cardboard_box": "Cardboard Box",
+  "item.cardboard_pet.cardboard_sword_reinforced_iron": "Iron-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_gold": "Gold-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_diamond": "Diamond-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_emerald": "Emerald-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_netherite": "Netherite-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_obsidian": "Obsidian-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_crying_obsidian": "Crying-Obsidian-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_sculk": "Sculk-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_end": "End-Reinforced Cardboard Sword",
+  "item.cardboard_pet.cardboard_sword_reinforced_nether_star": "Nether-Star-Reinforced Cardboard Sword"
 }

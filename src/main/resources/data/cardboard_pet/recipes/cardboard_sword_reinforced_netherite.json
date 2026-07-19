@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cardboard_pet:cardboard_sword_reinforced_emerald"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    }
+  ],
+  "result": {
+    "item": "cardboard_pet:cardboard_sword_reinforced_netherite",
+    "count": 1
+  }
+}

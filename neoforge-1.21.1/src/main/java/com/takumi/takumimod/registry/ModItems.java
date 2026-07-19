@@ -37,6 +37,55 @@ public class ModItems
                     () -> new SwordItem(CardboardTiers.DEEPSLATE_REINFORCED,
                             new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.DEEPSLATE_REINFORCED, 3, -0.4F))));
 
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_IRON =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_iron",
+                    () -> new SwordItem(Tiers.IRON, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_GOLD =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_gold",
+                    () -> new SwordItem(CardboardTiers.GOLD_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.GOLD_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_DIAMOND =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_diamond",
+                    () -> new SwordItem(CardboardTiers.DIAMOND_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.DIAMOND_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_EMERALD =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_emerald",
+                    () -> new SwordItem(CardboardTiers.EMERALD_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.EMERALD_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_NETHERITE =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_netherite",
+                    () -> new SwordItem(CardboardTiers.NETHERITE_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.NETHERITE_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_OBSIDIAN =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_obsidian",
+                    () -> new SwordItem(CardboardTiers.OBSIDIAN_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.OBSIDIAN_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_CRYING_OBSIDIAN =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_crying_obsidian",
+                    () -> new SwordItem(CardboardTiers.CRYING_OBSIDIAN_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.CRYING_OBSIDIAN_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_SCULK =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_sculk",
+                    () -> new SwordItem(CardboardTiers.SCULK_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.SCULK_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_END =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_end",
+                    () -> new SwordItem(CardboardTiers.END_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.END_REINFORCED, 3, -0.4F))));
+
+    public static final DeferredItem<Item> CARDBOARD_SWORD_REINFORCED_NETHER_STAR =
+            TakumiMod.ITEMS.register("cardboard_sword_reinforced_nether_star",
+                    () -> new SwordItem(CardboardTiers.NETHER_STAR_REINFORCED,
+                            new Item.Properties().attributes(SwordItem.createAttributes(CardboardTiers.NETHER_STAR_REINFORCED, 3, -0.4F))));
+
     public static void init()
     {
         // Forces class loading so the DeferredItems above are registered.

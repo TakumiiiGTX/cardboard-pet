@@ -90,7 +90,17 @@ public class TakumiMod
         {
             event.accept(ModItems.CARDBOARD_SWORD);
             event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_STONE);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_IRON);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_GOLD);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_DIAMOND);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_EMERALD);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_NETHERITE);
             event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_OBSIDIAN);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_CRYING_OBSIDIAN);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_SCULK);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_END);
+            event.accept(ModItems.CARDBOARD_SWORD_REINFORCED_NETHER_STAR);
         }
     }
 

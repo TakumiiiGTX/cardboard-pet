@@ -3,12 +3,12 @@ package com.takumi.takumimod.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.takumi.takumimod.TakumiMod;
-import com.takumi.takumimod.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -20,26 +20,17 @@ import net.minecraft.world.item.ItemStack;
  */
 public class CardboardSwordItemRenderer extends BlockEntityWithoutLevelRenderer
 {
-    private static final ResourceLocation BASE_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(TakumiMod.MODID, "textures/item/cardboard_sword.png");
-    private static final ResourceLocation BASE_TEXTURE_STONE =
-            ResourceLocation.fromNamespaceAndPath(TakumiMod.MODID, "textures/item/cardboard_sword_reinforced_stone.png");
-    private static final ResourceLocation BASE_TEXTURE_DEEPSLATE =
-            ResourceLocation.fromNamespaceAndPath(TakumiMod.MODID, "textures/item/cardboard_sword_reinforced_deepslate.png");
     private static final ResourceLocation GLOW_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TakumiMod.MODID, "textures/item/cardboard_sword_glow.png");
 
+    // Every cardboard_sword* variant has a texture file named exactly after its own item id
+    // (e.g. cardboard_sword_reinforced_iron -> textures/item/cardboard_sword_reinforced_iron.png),
+    // so the base texture can be derived straight from the registry name instead of maintaining
+    // a hardcoded constant + branch per tier.
     private static ResourceLocation resolveBaseTexture(ItemStack stack)
     {
-        if (stack.is(ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE.get()))
-        {
-            return BASE_TEXTURE_DEEPSLATE;
-        }
-        if (stack.is(ModItems.CARDBOARD_SWORD_REINFORCED_STONE.get()))
-        {
-            return BASE_TEXTURE_STONE;
-        }
-        return BASE_TEXTURE;
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return ResourceLocation.fromNamespaceAndPath(TakumiMod.MODID, "textures/item/" + itemId.getPath() + ".png");
     }
 
     public CardboardSwordItemRenderer()

@@ -15,7 +15,16 @@ import java.util.function.Supplier;
  */
 public enum CardboardTiers implements Tier
 {
-    DEEPSLATE_REINFORCED(300, 4.0F, 0.5F, 5, () -> Ingredient.of(Items.COBBLED_DEEPSLATE));
+    DEEPSLATE_REINFORCED(300, 4.0F, 0.5F, 5, () -> Ingredient.of(Items.COBBLED_DEEPSLATE)),
+    GOLD_REINFORCED(32, 4.0F, 5.0F, 22, () -> Ingredient.of(Items.GOLD_INGOT)),
+    DIAMOND_REINFORCED(1561, 4.0F, 6.0F, 10, () -> Ingredient.of(Items.DIAMOND)),
+    EMERALD_REINFORCED(1800, 4.0F, 8.0F, 12, () -> Ingredient.of(Items.EMERALD)),
+    NETHERITE_REINFORCED(2031, 4.0F, 12.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT)),
+    OBSIDIAN_REINFORCED(500, 4.0F, 1.0F, 8, () -> Ingredient.of(Items.OBSIDIAN)),
+    CRYING_OBSIDIAN_REINFORCED(600, 4.0F, 3.0F, 9, () -> Ingredient.of(Items.CRYING_OBSIDIAN)),
+    SCULK_REINFORCED(900, 4.0F, 5.0F, 20, () -> Ingredient.of(Items.ECHO_SHARD)),
+    END_REINFORCED(1200, 4.0F, 14.0F, 10, () -> Ingredient.of(Items.END_STONE)),
+    NETHER_STAR_REINFORCED(3000, 4.0F, 20.0F, 25, () -> Ingredient.of(Items.NETHER_STAR));
 
     private final int uses;
     private final float speed;

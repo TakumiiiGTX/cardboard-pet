@@ -36,7 +36,19 @@ public class TakumiModClient
                 return renderer;
             }
         };
-        event.registerItem(extensions, ModItems.CARDBOARD_SWORD.get(), ModItems.CARDBOARD_SWORD_REINFORCED_STONE.get(),
-                ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE.get());
+        event.registerItem(extensions,
+                ModItems.CARDBOARD_SWORD.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_STONE.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_IRON.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_GOLD.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_DIAMOND.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_EMERALD.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_NETHERITE.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_DEEPSLATE.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_OBSIDIAN.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_CRYING_OBSIDIAN.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_SCULK.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_END.get(),
+                ModItems.CARDBOARD_SWORD_REINFORCED_NETHER_STAR.get());
     }
 }
