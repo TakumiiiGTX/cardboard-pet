@@ -5,6 +5,16 @@ All notable changes to Cardboard Pet are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.1] - 2026-07-19
+
+### Changed
+- Cardboard boxes chase harder now: the flight charge attack is faster
+  (fast enough to catch up to a fleeing target) and no longer requires
+  being grounded to trigger. `FOLLOW_RANGE` was raised from 32 to 500
+  blocks, and losing line of sight no longer makes a box give up on a
+  hostile-mob target — once it's after something, it keeps after it
+  (bounded by what's actually loaded, in practice).
+
 ## [0.4.0] - 2026-07-19
 
 ### Added
