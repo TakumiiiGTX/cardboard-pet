@@ -5,6 +5,17 @@ All notable changes to Cardboard Pet are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.3] - 2026-07-20
+
+### Fixed
+- Cardboard boxes now actually attack twice as often (every 10 ticks instead
+  of 20) both on the ground and mid-flight. A first attempt overrode
+  `MeleeAttackGoal#getAttackInterval()`, which turned out to have no effect:
+  vanilla's `resetAttackCooldown()` hardcodes a 20-tick delay instead of
+  consulting it, and the backing cooldown field is private. Fixed by
+  overriding `checkAndPerformAttack(...)` directly with a self-managed
+  cooldown instead.
+
 ## [0.4.2] - 2026-07-19
 
 ### Changed
